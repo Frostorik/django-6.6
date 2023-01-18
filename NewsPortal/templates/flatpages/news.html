@@ -1,0 +1,40 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Все новости
+{% endblock title %}
+
+{% block content %}
+<center><h1 style="margin-top: 8px;">Все новости</h1></center>
+<hr>
+{% if news %}
+<center><table class="post_table">
+           <tr>
+               <td>Заголовок:</td>
+               <td>Тип поста:</td>
+               <td>Текст новости/поста:</td>
+               <td>Дата публикации:</td>
+               <td>Рейтинг поста:</td>
+           </tr>
+           {% for new in news %}
+           <tr>
+               <td><a href="{{ new.pk }}">{{ new.header_post|truncatechars:15 }}</a></td>
+               {% if new.type_post == 'AR' %}
+               <td>Статья</td>
+               {% else %}
+               <td>Новость</td>
+               {% endif %}
+               <td>{{ new.text_post|truncatechars:20 }}</td>
+               <td>{{ new.date_post|date:'d M Y' }}</td>
+               <td>{{ new.rating_post }}</td>
+           </tr>
+           {% endfor %}
+</table>
+</center>
+{% else %}
+<center><h2>Товаров нет!</h2></center>
+{% endif %}
+<hr>
+<center>Тут футер/подвал сайта.</center>
+{% endblock content %}
